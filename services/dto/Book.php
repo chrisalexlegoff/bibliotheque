@@ -4,7 +4,7 @@
 class Book
 {
 
-    private ?string $title;
+    public ?string $title;
     private ?string $author;
     private ?int $copyNumber;
     private ?int $taken;
@@ -131,5 +131,21 @@ class Book
         $this->copyNumber = readline("Saisissez le nombre de copies ");
         $this->isFree = true;
         $this->isReserved = false;
+    }
+    public function toArray(): array
+    {
+        $tab = [];
+        $tab[] = $this->title;
+        $tab[] = $this->author;
+        $tab[] = $this->copyNumber;
+        $tab[] = $this->taken;
+        $tab[] = $this->reserved;
+        return $tab;
+    }
+
+    public static function BookFromArray(array $tab): ?Book
+    {
+        $staff = new static();
+        return $staff;
     }
 }

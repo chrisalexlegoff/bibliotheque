@@ -20,7 +20,7 @@ class StaffDao
         ConstantesDao::initFiles(self::FILE_CPT_STAFF);
     }
    
-    public function saveAll(array $staffs): void
+    public function saveAllStaff(array $staffs): void
     {
         $handle = fopen(StaffDao::FILE_SAVE_STAFF, ConstantesDao::FILE_OPTION_W_PLUS);
         if (!empty(StaffDao::ENTETES_STAFF)) {
@@ -32,13 +32,13 @@ class StaffDao
         fclose($handle);
     }
 
-    public function getById($motif)
+    public function getByStaffId($motif)
     {
-        return $this->getOneByAttribute(StaffDao::CHAMP_ID, $motif);
+        return $this->getOneStaffByAttribute(StaffDao::CHAMP_ID, $motif);
     }
 
 
-    public function getAll(): array
+    public function getAllStaff(): array
     {
         $handle = fopen(StaffDao::FILE_SAVE_STAFF, ConstantesDao::FILE_OPTION_R);
         $entities = [];
@@ -53,38 +53,38 @@ class StaffDao
         return $entities;
     }
 
-    public function getByNom(string $motif): ?array
+    public function getStaffByNom(string $motif): ?array
     {
-        return $this->getAllByAttribute(StaffDao::CHAMP_NOM, $motif);
+        return $this->getAllStaffByAttribute(StaffDao::CHAMP_NOM, $motif);
     }
 
-    public function deleteById(int $idEntity): void
+    public function deleteStaffById(int $idEntity): void
     {
-        $allEntities = $this->getAll();
+        $allEntities = $this->getAllStaff();
         for ($i = 0; $i < count($allEntities); $i++) {
             if ($allEntities[$i]->getId() === $idEntity) {
                 array_splice($allEntities, $i, 1);
             }
         }
-        $this->saveAll($allEntities);
+        $this->saveAllStaff($allEntities);
     }
     public function modify(User $newEntity): void
     {
-        $allEntities = $this->getAll();
+        $allEntities = $this->getAllStaff();
         foreach ($allEntities as $currentEntity) {
            
             if ($currentEntity->getId() === $newEntity[StaffDao::CHAMP_ID]) {
                 $currentEntity = $newEntity;
             }
         }
-        $this->saveAll($allEntities);
+        $this->saveAllStaff($allEntities);
     }
 
 
-    public function save(Staff $newStaff): Staff
+    public function saveStaff(Staff $newStaff): Staff
     {
         $handle = fopen(StaffDao::FILE_SAVE_STAFF, ConstantesDao::FILE_OPTION_A_PLUS);
-        $newStaff->setId($this->getNextId());
+        $newStaff->setId($this->getNextStaffId());
         $newStaff->setNumeroStaff("SM".str_pad($newStaff->getId(), 6, "0", STR_PAD_LEFT));
         fputcsv($handle, $newStaff->toArray(), ConstantesDao::DELIM);
         fclose($handle);
@@ -93,7 +93,7 @@ class StaffDao
 
 
 
-    public function getNextId(): int
+    public function getNextStaffId(): int
     {
         $handle = fopen(StaffDao::FILE_CPT_STAFF, ConstantesDao::FILE_OPTION_A_PLUS);
         $currentId = intval(fgets($handle));
@@ -105,9 +105,9 @@ class StaffDao
         return $currentId;
     }
 
-    public function getOneByAttribute(string $attribute, string $motif): ?Staff
+    public function getOneStaffByAttribute(string $attribute, string $motif): ?Staff
     {
-        $allEntities = $this->getAll();
+        $allEntities = $this->getAllStaff();
         foreach ($allEntities as $entity) {
             $getter = "get".ucfirst($attribute);
             if (strtolower($entity->$getter()) === strtolower($motif)) {
@@ -116,9 +116,9 @@ class StaffDao
         }
         return null;
     }
-    public function getAllByAttribute(string $attribute, string $motif): array
+    public function getAllStaffByAttribute(string $attribute, string $motif): array
     {
-        $allEntities = $this->getAll();
+        $allEntities = $this->getAllStaff();
         $entitiesCherchees = [];
         foreach ($allEntities as $entity) {
             $getter = "get".ucfirst($attribute);

@@ -1,7 +1,7 @@
 <?php
-require_once "../dao/BookDao.php";
-require_once "../dao/CustomerDao.php";
-class take
+require_once ".\services\dao\CustomerDao.php";
+require_once ".\services\dao\BookDao.php";
+class Take
 {
 
     private ?Customer $customer;
@@ -132,4 +132,17 @@ class take
         $this->return = readline ("Date de retour prévue ?");
 
     }
+
+    public function toArray(): array
+    {
+        $tab = [];
+        $tab[] = $this->customer;
+        $tab[] = $this->book;
+        $tab[] = $this->copyNumber;
+        $tab[] = $this->taken;
+        $tab[] = $this->reserved;
+        return $tab;
+    }
+
+
 }

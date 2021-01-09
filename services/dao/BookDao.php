@@ -6,7 +6,7 @@ class BookDao
 {
 
     private const FILE_SAVE_BOOK = "../donnees/save_books.csv";
-    private const FILE_CPT_BOOK = "../donnees/compteurs/cpt_books.txt";    
+    private const FILE_CPT_BOOK = "../donnees/compteurs/cpt_books.txt";
     private const CHAMP_ID = "id";
     private const CHAMP_NUMERO_BOOK = "numeroLivre";
     private const CHAMP_TITRE = "Titre";
@@ -14,15 +14,15 @@ class BookDao
     private const CHAMP_EXEMPLAIRES = "Disponibles";
     private const CHAMP_EMPRUNTES = "Empruntés";
     private const CHAMP_RESERVES = "Réservés";
-    private const ENTETES_BOOK = [BookDao::CHAMP_ID,BookDao::CHAMP_NUMERO_BOOK,BookDao::CHAMP_TITRE,BookDao::CHAMP_AUTEUR,BookDao::CHAMP_EXEMPLAIRES,BookDao::CHAMP_EMPRUNTES,BookDao::CHAMP_RESERVES];
+    private const ENTETES_BOOK = [BookDao::CHAMP_ID, BookDao::CHAMP_NUMERO_BOOK, BookDao::CHAMP_TITRE, BookDao::CHAMP_AUTEUR, BookDao::CHAMP_EXEMPLAIRES, BookDao::CHAMP_EMPRUNTES, BookDao::CHAMP_RESERVES];
 
     public function __construct()
     {
         ConstantesDao::initFiles(self::FILE_SAVE_BOOK, self::ENTETES_BOOK);
         ConstantesDao::initFiles(self::FILE_CPT_BOOK);
     }
-   
-    public function saveAll(array $books): void
+
+    public function saveAllBook(array $books): void
     {
         $handle = fopen(BookDao::FILE_SAVE_BOOK, ConstantesDao::FILE_OPTION_W_PLUS);
         if (!empty(BookDao::ENTETES_BOOK)) {
@@ -34,13 +34,13 @@ class BookDao
         fclose($handle);
     }
 
-    public function getById($motif)
+    public function getBookById($motif)
     {
-        return $this->getOneByAttribute(BookDao::CHAMP_ID, $motif);
+        return $this->getOneBookByAttribute(BookDao::CHAMP_ID, $motif);
     }
 
 
-    public function getAll(): array
+    public function getAllBooks(): array
     {
         $handle = fopen(BookDao::FILE_SAVE_BOOK, ConstantesDao::FILE_OPTION_R);
         $entities = [];
@@ -48,42 +48,42 @@ class BookDao
         $entetes = fgetcsv($handle, 0, ConstantesDao::DELIM);
 
         while (($entity = fgetcsv($handle, 0, ConstantesDao::DELIM)) != false) {
-            $entities[] = Staff::StaffFromArray(array_combine($entetes, $entity));
+            $entities[] = Book::BookFromArray(array_combine($entetes, $entity));
         }
 
         fclose($handle);
         return $entities;
     }
 
-    public function getByNom(string $motif): ?array
+    public function getBookByNom(string $motif): ?array
     {
-        return $this->getAllByAttribute(BookDao::CHAMP_TITRE, $motif);
+        return $this->getAllBooksByAttribute(BookDao::CHAMP_TITRE, $motif);
     }
 
-    public function deleteById(int $idEntity): void
-    {
-        $allEntities = $this->getAll();
-        for ($i = 0; $i < count($allEntities); $i++) {
-            if ($allEntities[$i]->getId() === $idEntity) {
-                array_splice($allEntities, $i, 1);
-            }
-        }
-        $this->saveAll($allEntities);
-    }
-    public function modify(User $newEntity): void
-    {
-        $allEntities = $this->getAll();
-        foreach ($allEntities as $currentEntity) {
-           
-            if ($currentEntity->getId() === $newEntity[BookDao::CHAMP_ID]) {
-                $currentEntity = $newEntity;
-            }
-        }
-        $this->saveAll($allEntities);
-    }
+    // public function deleteBookById(int $idEntity): void
+    // {
+    //     $allEntities = $this->getAllBooks();
+    //     for ($i = 0; $i < count($allEntities); $i++) {
+    //         if ($allEntities[$i]->getId() === $idEntity) {
+    //             array_splice($allEntities, $i, 1);
+    //         }
+    //     }
+    //     $this->saveAllBooks($allEntities);
+    // }
+    // public function modify(Book $newEntity): void
+    // {
+    //     $allEntities = $this->getAllBooks();
+    //     foreach ($allEntities as $currentEntity) {
+
+    //         if ($currentEntity->getId() === $newEntity[BookDao::CHAMP_ID]) {
+    //             $currentEntity = $newEntity;
+    //         }
+    //     }
+    //     $this->saveAllBooks($allEntities);
+    // }
 
 
-    public function save(Book $newBook): Book
+    public function saveBook(Book $newBook): Book
     {
         $handle = fopen(BookDao::FILE_SAVE_BOOK, ConstantesDao::FILE_OPTION_A_PLUS);
         fputcsv($handle, $newBook->toArray(), ConstantesDao::DELIM);
@@ -105,27 +105,28 @@ class BookDao
         return $currentId;
     }
 
-    public function getOneByAttribute(string $attribute, string $motif): ?Staff
+    public function getOneBookByAttribute(string $attribute, string $motif): ?Staff
     {
-        $allEntities = $this->getAll();
+        $allEntities = $this->getAllBooks();
         foreach ($allEntities as $entity) {
-            $getter = "get".ucfirst($attribute);
+            $getter = "get" . ucfirst($attribute);
             if (strtolower($entity->$getter()) === strtolower($motif)) {
                 return $entity;
             }
         }
         return null;
     }
-    public function getAllByAttribute(string $attribute, string $motif): array
+    public function getAllBooksByAttribute(string $attribute, string $motif): array
     {
-        $allEntities = $this->getAll();
+        $allEntities = $this->getAllBooks();
         $entitiesCherchees = [];
         foreach ($allEntities as $entity) {
-            $getter = "get".ucfirst($attribute);
+            $getter = "get" . ucfirst($attribute);
             if (strtolower($entity->$getter()) === strtolower($motif)) {
                 $entitiesCherchees[] = Staff::StaffFromArray($entity);
             }
         }
         return $entitiesCherchees;
     }
+    
 }

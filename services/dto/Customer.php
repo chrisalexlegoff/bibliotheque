@@ -106,13 +106,6 @@ class Customer extends User
     public static function CustomerFromArray(array $tab): ?Customer
     {
         $customer = new static();
-        foreach ($tab as $key => $value) {
-            if ($key !== "dateNaissance") {
-                $customer->$key = $value;
-            } else {
-                $customer->setDateNaissance( DateHelper::toDateTimeWithFormat("Y-m-d",$value));
-            }
-        }
         return $customer;
     }
 

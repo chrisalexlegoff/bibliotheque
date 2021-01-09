@@ -4,7 +4,7 @@
 class Book
 {
 
-    private ?string $title;
+    public ?string $title;
     private ?string $author;
     private ?int $copyNumber;
     private ?int $taken;

@@ -78,7 +78,7 @@
     require_once "../services/dao/CustomerDao.php";
     require_once "../services/dto/Customer.php";
     $customerDao = new CustomerDao();
-    $customers = $customerDao->getAllCustomers();
+    $customers = $customerDao->getAll();
     ?>
     <div>
         <h2>Liste Customers : </h2>

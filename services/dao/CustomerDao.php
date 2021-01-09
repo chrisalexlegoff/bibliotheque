@@ -20,7 +20,7 @@ class CustomerDao
         ConstantesDao::initFiles(self::FILE_CPT_CUSTOMER);
     }
    
-    public function saveAll(array $customers): void
+    public function saveAllCustomers(array $customers): void
     {
         $handle = fopen(CustomerDao::FILE_SAVE_CUSTOMER, ConstantesDao::FILE_OPTION_W_PLUS);
         if (!empty(CustomerDao::ENTETES_CUSTOMER)) {
@@ -32,13 +32,13 @@ class CustomerDao
         fclose($handle);
     }
 
-    public function getById($motif): array
+    public function getCustomerById($motif): array
     {
-        return $this->getOneByAttribute(CustomerDao::CHAMP_ID, $motif);
+        return $this->getOneCustomerByAttribute(CustomerDao::CHAMP_ID, $motif);
     }
 
 
-    public function getAll(): array
+    public function getAllCustomers(): array
     {
         $handle = fopen(CustomerDao::FILE_SAVE_CUSTOMER, ConstantesDao::FILE_OPTION_R);
         $entities = [];
@@ -53,38 +53,38 @@ class CustomerDao
         return $entities;
     }
 
-    public function getByNom(string $motif): ?array
+    public function getCustomerByNom(string $motif): ?array
     {
-        return $this->getAllByAttribute(CustomerDao::CHAMP_NOM, $motif);
+        return $this->getAllCustomersByAttribute(CustomerDao::CHAMP_NOM, $motif);
     }
 
-    public function deleteById(int $idEntity): void
+    public function deleteCustomerById(int $idEntity): void
     {
-        $allEntities = $this->getAll();
+        $allEntities = $this->getAllCustomers();
         for ($i = 0; $i < count($allEntities); $i++) {
             if ($allEntities[$i]->getId() === $idEntity) {
                 array_splice($allEntities, $i, 1);
             }
         }
-        $this->saveAll($allEntities);
+        $this->saveAllCustomers($allEntities);
     }
     public function modify(User $newEntity): void
     {
-        $allEntities = $this->getAll();
+        $allEntities = $this->getAllCustomers();
         foreach ($allEntities as $currentEntity) {
            
             if ($currentEntity->getId() === $newEntity[CustomerDao::CHAMP_ID]) {
                 $currentEntity = $newEntity;
             }
         }
-        $this->saveAll($allEntities);
+        $this->saveAllCustomers($allEntities);
     }
 
 
-    public function save(Customer $newCustomer): Customer
+    public function saveCustomer(Customer $newCustomer): Customer
     {
         $handle = fopen(CustomerDao::FILE_SAVE_CUSTOMER, ConstantesDao::FILE_OPTION_A_PLUS);
-        $newCustomer->setId($this->getNextId());
+        $newCustomer->setId($this->getNextCustomerId());
         $newCustomer->setNumeroCustomer("SM".str_pad($newCustomer->getId(), 6, "0", STR_PAD_LEFT));
         fputcsv($handle, $newCustomer->toArray(), ConstantesDao::DELIM);
         fclose($handle);
@@ -93,7 +93,7 @@ class CustomerDao
 
 
 
-    public function getNextId(): int
+    public function getNextCustomerId(): int
     {
         $handle = fopen(CustomerDao::FILE_CPT_CUSTOMER, ConstantesDao::FILE_OPTION_A_PLUS);
         $currentId = intval(fgets($handle));
@@ -105,9 +105,9 @@ class CustomerDao
         return $currentId;
     }
 
-    public function getOneByAttribute(string $attribute, string $motif): array
+    public function getOneCustomerByAttribute(string $attribute, string $motif): array
     {
-        $allEntities = $this->getAll();
+        $allEntities = $this->getAllCustomers();
         foreach ($allEntities as $entity) {
             // $getter = "get".ucfirst($attribute);
             if (strtolower($entity[$attribute]) === strtolower($motif)) {
@@ -116,9 +116,9 @@ class CustomerDao
         }
         return null;
     }
-    public function getAllByAttribute(string $attribute, string $motif): array
+    public function getAllCustomersByAttribute(string $attribute, string $motif): array
     {
-        $allEntities = $this->getAll();
+        $allEntities = $this->getAllCustomers();
         $entitiesCherchees = [];
         foreach ($allEntities as $entity) {
             $getter = "get".ucfirst($attribute);

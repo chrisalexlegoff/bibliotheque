@@ -132,4 +132,20 @@ class Book
         $this->isFree = true;
         $this->isReserved = false;
     }
+    public function toArray(): array
+    {
+        $tab = [];
+        $tab[] = $this->title;
+        $tab[] = $this->author;
+        $tab[] = $this->copyNumber;
+        $tab[] = $this->taken;
+        $tab[] = $this->reserved;
+        return $tab;
+    }
+
+    public static function BookFromArray(array $tab): ?Book
+    {
+        $staff = new static();
+        return $staff;
+    }
 }

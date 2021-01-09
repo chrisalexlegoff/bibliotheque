@@ -75,13 +75,13 @@
         <!-- Navbar -->
     </div>
     <?php
-    require_once "../services/dao/CustomerDao.php";
-    require_once "../services/dto/Customer.php";
-    $customerDao = new CustomerDao();
-    $customers = $customerDao->getAllCustomers();
+    require_once "../services/dao/StaffDao.php";
+    require_once "../services/dto/Staff.php";
+    $staffDao = new StaffDao();
+    $staffs = $staffDao->getAllStaff();
     ?>
     <div>
-        <h2>Liste Customers : </h2>
+        <h2>Liste Staff : </h2>
         <table class="table">
             <thead>
                 <tr>
@@ -93,13 +93,14 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($customers as $customer) { ?>
+                <?php foreach ($staffs as $staff) { ?>
+                    <?php var_dump($staff); ?>
                     <tr>
-                        <th scope="row"><a href="./AfficherCustomer.php?id=<?php echo  $customer["id"]; ?>"><?php echo  $customer["id"]; ?></a></th>
-                        <td><?php echo $customer["numeroCustomer"]; ?></td>
-                        <td><?php echo $customer["nom"]; ?></td>
-                        <td><?php echo $customer["prenom"]; ?></td>
-                        <td><?php echo $customer["email"]; ?></td>
+                        <th scope="row"><a href="./AfficherStaff.php?id=<?php echo  $staff["id"]; ?>"><?php echo  $staff["id"]; ?></a></th>
+                        <td><?php echo $staff["numeroStaff"]; ?></td>
+                        <td><?php echo $staff["nom"]; ?></td>
+                        <td><?php echo $staff["prenom"]; ?></td>
+                        <td><?php echo $staff["email"]; ?></td>
                     </tr>
                 <?php
                 }

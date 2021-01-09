@@ -85,7 +85,7 @@ class CustomerDao
     {
         $handle = fopen(CustomerDao::FILE_SAVE_CUSTOMER, ConstantesDao::FILE_OPTION_A_PLUS);
         $newCustomer->setId($this->getNextCustomerId());
-        $newCustomer->setNumeroCustomer("SM".str_pad($newCustomer->getId(), 6, "0", STR_PAD_LEFT));
+        $newCustomer->setNumeroCustomer("ADH".str_pad($newCustomer->getId(), 6, "0", STR_PAD_LEFT));
         fputcsv($handle, $newCustomer->toArray(), ConstantesDao::DELIM);
         fclose($handle);
         return $newCustomer;

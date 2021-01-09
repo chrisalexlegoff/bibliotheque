@@ -8,7 +8,7 @@ if (!isset($_GET["id"])) {
 
     $idCustomer = intval($_GET["id"]);
     $customerDao = new CustomerDao();
-    $customer = $customerDao->getById($idCustomer);
+    $customer = $customerDao->getCustomerById($idCustomer);
     $_REQUEST["customer"] = $customer;
     require "../front/vues/AfficherCustomerVue.php";
 

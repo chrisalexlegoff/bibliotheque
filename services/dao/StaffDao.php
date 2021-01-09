@@ -6,7 +6,7 @@ class StaffDao
 {
 
     private const FILE_SAVE_STAFF = "../donnees/save_staffs.csv";
-    private const FILE_CPT_STAFF = "../donnees/compteurs/cpt_customers.txt";    
+    private const FILE_CPT_STAFF = "../donnees/compteurs/cpt_staffs.txt";    
     private const CHAMP_ID = "id";
     private const CHAMP_NUMERO_STAFF = "numeroStaff";
     private const CHAMP_NOM = "nom";
@@ -46,7 +46,8 @@ class StaffDao
         $entetes = fgetcsv($handle, 0, ConstantesDao::DELIM);
 
         while (($entity = fgetcsv($handle, 0, ConstantesDao::DELIM)) != false) {
-            $entities[] = Staff::StaffFromArray(array_combine($entetes, $entity));
+            $entities[] = array_combine($entetes, $entity);
+            // $entities[] = Staff::StaffFromArray(array_combine($entetes, $entity));
         }
 
         fclose($handle);
@@ -85,7 +86,7 @@ class StaffDao
     {
         $handle = fopen(StaffDao::FILE_SAVE_STAFF, ConstantesDao::FILE_OPTION_A_PLUS);
         $newStaff->setId($this->getNextStaffId());
-        $newStaff->setNumeroStaff("SM".str_pad($newStaff->getId(), 6, "0", STR_PAD_LEFT));
+        $newStaff->setNumeroStaff("EMP".str_pad($newStaff->getId(), 6, "0", STR_PAD_LEFT));
         fputcsv($handle, $newStaff->toArray(), ConstantesDao::DELIM);
         fclose($handle);
         return $newStaff;
@@ -105,12 +106,12 @@ class StaffDao
         return $currentId;
     }
 
-    public function getOneStaffByAttribute(string $attribute, string $motif): ?Staff
+    public function getOneStaffByAttribute(string $attribute, string $motif): array
     {
         $allEntities = $this->getAllStaff();
         foreach ($allEntities as $entity) {
-            $getter = "get".ucfirst($attribute);
-            if (strtolower($entity->$getter()) === strtolower($motif)) {
+            // $getter = "get".ucfirst($attribute);
+            if (strtolower($entity[$attribute]) === strtolower($motif)) {
                 return $entity;
             }
         }

@@ -9,11 +9,11 @@ class BookDao
     private const FILE_CPT_BOOK = "../donnees/compteurs/cpt_books.txt";
     private const CHAMP_ID = "id";
     private const CHAMP_NUMERO_BOOK = "numeroLivre";
-    private const CHAMP_TITRE = "Titre";
-    private const CHAMP_AUTEUR = "Auteur";
-    private const CHAMP_EXEMPLAIRES = "Disponibles";
-    private const CHAMP_EMPRUNTES = "Empruntés";
-    private const CHAMP_RESERVES = "Réservés";
+    private const CHAMP_TITRE = "titre";
+    private const CHAMP_AUTEUR = "auteur";
+    private const CHAMP_EXEMPLAIRES = "disponibles";
+    private const CHAMP_EMPRUNTES = "empruntes";
+    private const CHAMP_RESERVES = "reserves";
     private const ENTETES_BOOK = [BookDao::CHAMP_ID, BookDao::CHAMP_NUMERO_BOOK, BookDao::CHAMP_TITRE, BookDao::CHAMP_AUTEUR, BookDao::CHAMP_EXEMPLAIRES, BookDao::CHAMP_EMPRUNTES, BookDao::CHAMP_RESERVES];
 
     public function __construct()
@@ -34,7 +34,7 @@ class BookDao
         fclose($handle);
     }
 
-    public function getBookById($motif)
+    public function getBookById($motif): array
     {
         return $this->getOneBookByAttribute(BookDao::CHAMP_ID, $motif);
     }
@@ -48,7 +48,7 @@ class BookDao
         $entetes = fgetcsv($handle, 0, ConstantesDao::DELIM);
 
         while (($entity = fgetcsv($handle, 0, ConstantesDao::DELIM)) != false) {
-            $entities[] = Book::BookFromArray(array_combine($entetes, $entity));
+            $entities[] = array_combine($entetes, $entity);
         }
 
         fclose($handle);
@@ -86,6 +86,10 @@ class BookDao
     public function saveBook(Book $newBook): Book
     {
         $handle = fopen(BookDao::FILE_SAVE_BOOK, ConstantesDao::FILE_OPTION_A_PLUS);
+        $newBook->setId($this->getNextBookId());
+        $newBook->setNumeroLivre("ISBN-".str_pad($newBook->getId(), 10, "0", STR_PAD_LEFT));
+        $newBook->setTaken(0);
+        $newBook->setReserved(0);
         fputcsv($handle, $newBook->toArray(), ConstantesDao::DELIM);
         fclose($handle);
         return $newBook;
@@ -93,7 +97,7 @@ class BookDao
 
 
 
-    public function getNextId(): int
+    public function getNextBookId(): int
     {
         $handle = fopen(BookDao::FILE_CPT_BOOK, ConstantesDao::FILE_OPTION_A_PLUS);
         $currentId = intval(fgets($handle));
@@ -105,12 +109,12 @@ class BookDao
         return $currentId;
     }
 
-    public function getOneBookByAttribute(string $attribute, string $motif): ?Staff
+    public function getOneBookByAttribute(string $attribute, string $motif): array
     {
         $allEntities = $this->getAllBooks();
         foreach ($allEntities as $entity) {
-            $getter = "get" . ucfirst($attribute);
-            if (strtolower($entity->$getter()) === strtolower($motif)) {
+            // $getter = "get" . ucfirst($attribute);
+            if (strtolower($entity[$attribute]) === strtolower($motif)) {
                 return $entity;
             }
         }

@@ -3,7 +3,8 @@
 
 class Book
 {
-
+    private ?int $id;
+    private ?string $numeroLivre;    
     public ?string $title;
     private ?string $author;
     private ?int $copyNumber;
@@ -12,6 +13,8 @@ class Book
 
 
     public function __construct(
+        ?int $id = null,
+        ?string $numeroLivre = null,
         ?string $title = null,
         ?string $author = null,
         ?int $copyNumber = null,
@@ -19,6 +22,8 @@ class Book
         ?int $reserved = null
 
     ) {
+        $this->id = $id;
+        $this->numeroLivre = $numeroLivre;
         $this->title = $title;
         $this->author = $author;
         $this->copyNumber = $copyNumber;
@@ -121,8 +126,6 @@ class Book
     public function setReserved($reserved)
     {
         $this->reserved = $reserved;
-
-        return $this;
     }
     public function bookFromKeyboard()
     {
@@ -135,6 +138,8 @@ class Book
     public function toArray(): array
     {
         $tab = [];
+        $tab[] = $this->id;
+        $tab[] = $this->numeroLivre;
         $tab[] = $this->title;
         $tab[] = $this->author;
         $tab[] = $this->copyNumber;
@@ -147,5 +152,41 @@ class Book
     {
         $staff = new static();
         return $staff;
+    }
+
+    /**
+     * Get the value of numeroLivre
+     */ 
+    public function getNumeroLivre()
+    {
+        return $this->numeroLivre;
+    }
+
+    /**
+     * Set the value of numeroLivre
+     *
+     * @return  self
+     */ 
+    public function setNumeroLivre($numeroLivre)
+    {
+        $this->numeroLivre = $numeroLivre;
+    }
+
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 }

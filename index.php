@@ -17,33 +17,16 @@
       <li class="nav-item">
         <a class="nav-link" href="front/login.php">Login</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="front/ListeCustomer.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          Customer
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="front/AfficherCreationCustomer.php">Créer Customer</a>
-          <a class="dropdown-item" href="front/vues/AfficherCustomerVue.php">Afficher customer</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="front/ListeStaff.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-          Staff
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="front/AfficherCreationStaff.php">Créer Staff</a>
-          <a class="dropdown-item" href="front/vues/AfficherStaffVue.php">Afficher staff</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
+      
+      
       <li class="nav-item">
         <a class="nav-link disabled" href="front/AfficherCreationStaff.php">Créer Staff</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="front/AfficherCreationCustomer.php">Créer Customer</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="front/AfficherCreationBook.php">Créer Book</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="front/Deconnexion.php">Déconnexion</a>

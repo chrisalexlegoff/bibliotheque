@@ -1,5 +1,7 @@
 <?php
 
+require 'User.php';
+
 class Staff extends User{
     private ?string $numeroStaff;
 
@@ -40,10 +42,13 @@ class Staff extends User{
     public function toArray(): array
     {
         $tab = [];
-        $tab[] = $this->id;
-        $tab[] = $this->nom;
-        $tab[] = $this->prenom;
-        $tab[] = $this->email;
+        $tab[] = User::getId();
+        $tab[] = $this->numeroStaff;
+        $tab[] = User::getNom();
+        $tab[] = User::getPrenom();
+        $tab[] = User::getEmail();
+        $tab[] = User::getPassword();
+        $tab[] = User::getStatut();
 
         return $tab;
     }

@@ -12,12 +12,12 @@
 
   <div >
     <div>
-      <h1>Creation Customer</h1>
+      <h1>Creation Staff</h1>
     </div>
     <br>
 
     <div>
-      <form method="POST" action="./faireCreationCustomer.php">
+      <form method="POST" action="./faireCreationStaff.php">
         <div>Nom : <input required type="text" name="nom" placeholder="Nom"></div>
         <div>Prenom : <input required type="text" name="prenom" placeholder="Prenom"></div>
         <div>Email : <input required type="email" name="email" placeholder="Email"></div>

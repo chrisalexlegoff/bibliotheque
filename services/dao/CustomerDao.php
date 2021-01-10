@@ -12,7 +12,9 @@ class CustomerDao
     private const CHAMP_NOM = "nom";
     private const CHAMP_PRENOM = "prenom";
     private const CHAMP_EMAIL = "email";
-    private const ENTETES_CUSTOMER = [CustomerDao::CHAMP_ID,CustomerDao::CHAMP_NUMERO_CUSTOMER,CustomerDao::CHAMP_NOM,CustomerDao::CHAMP_PRENOM,CustomerDao::CHAMP_EMAIL];
+    private CONST CHAMP_PASSWORD = "password";
+    private CONST CHAMP_SATUT = "statut";
+    private const ENTETES_CUSTOMER = [CustomerDao::CHAMP_ID,CustomerDao::CHAMP_NUMERO_CUSTOMER,CustomerDao::CHAMP_NOM,CustomerDao::CHAMP_PRENOM,CustomerDao::CHAMP_EMAIL,CustomerDao::CHAMP_PASSWORD,CustomerDao::CHAMP_SATUT];
 
     public function __construct()
     {
@@ -85,7 +87,7 @@ class CustomerDao
     {
         $handle = fopen(CustomerDao::FILE_SAVE_CUSTOMER, ConstantesDao::FILE_OPTION_A_PLUS);
         $newCustomer->setId($this->getNextCustomerId());
-        $newCustomer->setNumeroCustomer("SM".str_pad($newCustomer->getId(), 6, "0", STR_PAD_LEFT));
+        $newCustomer->setNumeroCustomer("ADH".str_pad($newCustomer->getId(), 6, "0", STR_PAD_LEFT));
         fputcsv($handle, $newCustomer->toArray(), ConstantesDao::DELIM);
         fclose($handle);
         return $newCustomer;

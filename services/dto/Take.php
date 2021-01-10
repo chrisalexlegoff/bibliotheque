@@ -1,6 +1,6 @@
 <?php
-require_once ".\services\dao\CustomerDao.php";
-require_once ".\services\dao\BookDao.php";
+require_once "..\services\dao\CustomerDao.php";
+require_once "..\services\dao\BookDao.php";
 class Take
 {
 

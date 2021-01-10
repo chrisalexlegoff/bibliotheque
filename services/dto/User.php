@@ -6,17 +6,23 @@ class User
     private ?string $nom;
     private ?string $prenom;
     private ?string $email;
+    private ?string $password;
+    private ?string $statut;
 
     public function __construct(
         ?int $id = null,
         ?string $nom = null,
         ?string $prenom = null,
-        ?string $email = null
+        ?string $email = null,
+        ?string $password = null,
+        ?string $statut = null
     ) {
         $this->id = $id;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->email = $email;
+        $this->password = $password;
+        $this->statut = $statut;
     }
     /**
      * Get the value of id
@@ -91,4 +97,40 @@ class User
         $this->email = $email;
     }
     
+
+    /**
+     * Get the value of password
+     */ 
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set the value of password
+     *
+     * @return  self
+     */ 
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * Get the value of statut
+     */ 
+    public function getStatut()
+    {
+        return $this->statut;
+    }
+
+    /**
+     * Set the value of statut
+     *
+     * @return  self
+     */ 
+    public function setStatut($statut)
+    {
+        $this->statut = $statut;
+    }
 }

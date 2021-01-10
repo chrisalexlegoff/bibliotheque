@@ -47,6 +47,8 @@ class Staff extends User{
         $tab[] = User::getNom();
         $tab[] = User::getPrenom();
         $tab[] = User::getEmail();
+        $tab[] = User::getPassword();
+        $tab[] = User::getStatut();
 
         return $tab;
     }

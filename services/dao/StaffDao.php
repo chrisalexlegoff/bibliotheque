@@ -12,7 +12,9 @@ class StaffDao
     private const CHAMP_NOM = "nom";
     private const CHAMP_PRENOM = "prenom";
     private const CHAMP_EMAIL = "email";
-    private const ENTETES_STAFF = [StaffDao::CHAMP_ID,StaffDao::CHAMP_NUMERO_STAFF,StaffDao::CHAMP_NOM,StaffDao::CHAMP_PRENOM,StaffDao::CHAMP_EMAIL];
+    private CONST CHAMP_PASSWORD = "password";
+    private CONST CHAMP_SATUT = "statut";
+    private const ENTETES_STAFF = [StaffDao::CHAMP_ID,StaffDao::CHAMP_NUMERO_STAFF,StaffDao::CHAMP_NOM,StaffDao::CHAMP_PRENOM,StaffDao::CHAMP_EMAIL, StaffDao::CHAMP_PASSWORD, StaffDao::CHAMP_SATUT];
 
     public function __construct()
     {

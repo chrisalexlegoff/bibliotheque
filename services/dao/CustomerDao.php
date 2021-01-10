@@ -12,7 +12,9 @@ class CustomerDao
     private const CHAMP_NOM = "nom";
     private const CHAMP_PRENOM = "prenom";
     private const CHAMP_EMAIL = "email";
-    private const ENTETES_CUSTOMER = [CustomerDao::CHAMP_ID,CustomerDao::CHAMP_NUMERO_CUSTOMER,CustomerDao::CHAMP_NOM,CustomerDao::CHAMP_PRENOM,CustomerDao::CHAMP_EMAIL];
+    private CONST CHAMP_PASSWORD = "password";
+    private CONST CHAMP_SATUT = "statut";
+    private const ENTETES_CUSTOMER = [CustomerDao::CHAMP_ID,CustomerDao::CHAMP_NUMERO_CUSTOMER,CustomerDao::CHAMP_NOM,CustomerDao::CHAMP_PRENOM,CustomerDao::CHAMP_EMAIL,CustomerDao::CHAMP_PASSWORD,CustomerDao::CHAMP_SATUT];
 
     public function __construct()
     {

@@ -7,8 +7,10 @@ $newCustomer = new Customer();
 $newCustomer->setNom($_POST["nom"]);
 $newCustomer->setPrenom($_POST["prenom"]);
 $newCustomer->setEmail($_POST["email"]);
+$newCustomer->setStatut($_POST["statut"]);
+$newCustomer->setPassword(md5($_POST["password"]));
 
 $customerDao = new CustomerDao();
 $customer = $customerDao->saveCustomer($newCustomer);
-header("location: http://localhost/Git\github\bibliotheque_germaine_remi_christophe/front/ListeCustomer.php");
+header("location: ListeCustomer.php");
 ?>

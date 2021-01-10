@@ -1,2 +1,2 @@
-id;numeroCustomer;nom;prenom;email
-1;ADH000001;AdherentNom1;AdherentPreNom1;Adherent1@bibliotheque.com
+id;numeroCustomer;nom;prenom;email;password;statut
+1;ADH000001;AdherentNom1;AdherentPreNom1;Adherent1@bibliotheque.com;91ec1f9324753048c0096d036a694f86;customer

@@ -1,2 +1,4 @@
 id;numeroStaff;nom;prenom;email;password;statut
 1;EMP000001;EmployeNom1;EmployePreNom1;Employe1@biliotheque.com;1253208465b1efa876f982d8a9e73eef;staff
+2;EMP000002;EmployeNom2;EmployePreNom2;Employe2@biliotheque.com;91ec1f9324753048c0096d036a694f86;staff
+3;EMP000003;EmployeNom3;EmployePreNom3;Employe3@biliotheque.com;1253208465b1efa876f982d8a9e73eef;staff

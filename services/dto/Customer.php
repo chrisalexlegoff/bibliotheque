@@ -7,8 +7,10 @@ class Customer extends User
     private ?string $numeroCustomer;
     private ?arrayobject $books;
     private ?arrayobject $reserved;
+    private ?int $nbreLivreReserve;
+    private ?int $nbreLivreEmprunte;
 
-    public function __construct(?string $numeroCustomer = null, ?arrayobject $books = null, ?arrayobject $reserved = null)
+    public function __construct(?string $numeroCustomer = null, ?arrayobject $books = null, ?arrayobject $reserved = null, ?int $nbreLivreReserve = null, ?int $nbreLivreEmprunte = null)
     {
         parent::__construct();
         $this->numeroCustomer = $numeroCustomer;
@@ -20,6 +22,8 @@ class Customer extends User
         // if ($this->reserved == null) {
         //     $this->reserved = new ArrayObject();
         // }
+        $this->nbreLivreReserve = $nbreLivreReserve;
+        $this->nbreLivreEmprunte = $nbreLivreEmprunte;
     }
 
     /**
@@ -101,6 +105,8 @@ class Customer extends User
         $tab[] = User::getEmail();
         $tab[] = User::getPassword();
         $tab[] = User::getStatut();
+        $tab[] = $this->nbreLivreReserve;
+        $tab[] = $this->nbreLivreEmprunte;
 
         return $tab;
     }
@@ -111,4 +117,40 @@ class Customer extends User
         return $customer;
     }
 
+
+    /**
+     * Get the value of nbreLivreReserve
+     */ 
+    public function getNbreLivreReserve()
+    {
+        return $this->nbreLivreReserve;
+    }
+
+    /**
+     * Set the value of nbreLivreReserve
+     *
+     * @return  self
+     */ 
+    public function setNbreLivreReserve($nbreLivreReserve)
+    {
+        $this->nbreLivreReserve = $nbreLivreReserve;
+    }
+
+    /**
+     * Get the value of nbreLivreEmprunte
+     */ 
+    public function getNbreLivreEmprunte()
+    {
+        return $this->nbreLivreEmprunte;
+    }
+
+    /**
+     * Set the value of nbreLivreEmprunte
+     *
+     * @return  self
+     */ 
+    public function setNbreLivreEmprunte($nbreLivreEmprunte)
+    {
+        $this->nbreLivreEmprunte = $nbreLivreEmprunte;
+    }
 }

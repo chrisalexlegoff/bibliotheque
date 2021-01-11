@@ -100,6 +100,8 @@
                         <td><?php echo $customer["nom"]; ?></td>
                         <td><?php echo $customer["prenom"]; ?></td>
                         <td><?php echo $customer["email"]; ?></td>
+                        <td><?php echo $customer["reserves"]; ?></td>
+                        <td><?php echo $customer["empruntes"]; ?></td>
                     </tr>
                 <?php
                 }

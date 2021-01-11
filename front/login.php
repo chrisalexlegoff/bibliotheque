@@ -1,64 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire d'authentification</title>
+    <title>connexion</title>
 
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link type="text/css" rel="stylesheet" href="../css/login.css">
-</head>
+    <!-- Custom styles for this template -->
+    <link href="../css/login.css" rel="stylesheet">
+  </head>
 
-<body>
-    <div class="header" id="myHeader" style="margin-bottom: -565px;">
-        <img style="height: 280px; padding-top: 0px; margin-right: 0px; border-top-width: 0px;" alt="" src="../img/pile-de-livres.jpg">
-    </div>
-    <img style="height: 280px; padding-top: 0px; margin-right: 0px; border-top-width: 0px;" alt="" src="../img/pile-de-livres.jpg">
-    </div>
-
-    <div id="login">
-        <h3 class="text-center text-white pt-5">Login form</h3>
+  <body>
+      <!-- <div class="image" style="background-image:url('img/pile-de-livres.jpg')"> -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6">
-                    <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="./loginScript.php" method="post">
-                            <h3 class="text text-info">Connexion</h3><br><br>
-                            <div class="form-group">
-                                <label for="identifiant" class="text-info">Identifiant:</label><br>
-                                <input type="text" name="identifiant" id="identifiant" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="text-info">Mot de passe:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
-                            </div>
-                            <!-- <div class="form-group">
-                                <label for="statut" class="text-info">Statut:</label><br>
-                                <input type="text" name="statut" id="statut" class="form-control">
-                                
-                            </div> -->
-                            <div class="form-group">
-                                <label for="statut:" class="text-info"> Statut:</label><br>
-                                <select name="statut" id="statut" class="form-control">
-                                    <option value="customer">Adhérent
-                                    <option>
-                                    <option value="staff">Employé
-                                    <option>
-                                </select> <br /> <br /> <br />
-                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Envoyer">
-                            </div>
-                            <!-- <div id="register-link" class="text-right">
-                                <a href="#" class="text-info">Inscription d'un nouvel utilisateur</a>
-                            </div> -->
-
-                        </form>
-                    </div>
-                </div>
-            </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Accueil
+                      <span class="sr-only">(current)</span>
+                    </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Connexion</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Déconnexion</a>
+              </li>
+            </ul>
+          </div>
         </div>
-    </div>
-</body>
+      </nav>
+    <form class="form-signin" action="./loginScript.php" method="post">
+      <div class="text-center mb-4"> 
+        <h1 class="jumbotron-heading"> Connexion </h1><br><br><br>
+      </div>
+      <div class="form-label-group">
+        <input type="identifiant" id="identifiant" name="identifiant" class="form-control" placeholder="identifiant" required autofocus>
+        <label for="identifiant">Identifiant</label>
+      </div>
+
+      <div class="form-label-group">
+        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        <label for="password">Mot de passe</label>
+      </div>
+
+      <div class="form-group">
+        <label for="statut:" name="statut" class="text-info"> Statut:</label><br>
+            <select name="statut" id="statut" class="form-control">
+                <option value="customer">Adhérent<option>    
+                <option value="staff">Employé<option>           
+            </select> <br/> <br/> <br/>   
+      </div>
+ 
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Envoyer</button>
+     
+    </form>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

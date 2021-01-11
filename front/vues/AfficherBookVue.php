@@ -1,6 +1,7 @@
 <?php
 require_once "../services/dto/Book.php";
 var_dump($_REQUEST);
+var_dump($_GET);
 if (!isset($_REQUEST["book"])) {
     echo "<div> Erreur </div>";
 } else {

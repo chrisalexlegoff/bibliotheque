@@ -23,25 +23,10 @@ body {
 }
 
 .form-signin {
-  width: 133%;
-  max-width: 758px;
-  padding: 170px;
-  margin: 45px auto;  
-}
-  /* .form-signin {
-    width: 100%;
-    max-width: 420px;
-    padding: 15px;
-    margin: 0 auto; */
-  /* } */
-
-.form-signin2 {
   width: 100%;
-  max-width: 757px;
-  padding: px;
-  margin: -1px auto;
-  width: 500px;
-  height: 300%;
+  max-width: 420px;
+  padding: 15px;
+  margin: 0 auto;
 }
 
 .form-label-group {
@@ -105,9 +90,8 @@ body {
     text-shadow: 2px 3px 5px rgba(0,0,0,0.3);
   }
 
-   .image{
+  /* .image{
     background-repeat: no-repeat;
     background-size:top 20% 80%;
-    /* background-position: bottom 50px right 100px; */
-    background-position:right;
-   } 
+    background-position: bottom 50px right 100px;
+   }   */ 

@@ -40,7 +40,7 @@
           </div>
         </div>
       </nav>
-    <form class="form-signin" action="./loginScript.php" method="post">
+    <form class="form-signin2" action="./loginScript.php" method="post">
       <div class="text-center mb-4"> 
         <h1 class="jumbotron-heading"> Connexion </h1><br><br><br>
       </div>

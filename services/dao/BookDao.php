@@ -22,19 +22,19 @@ class BookDao
         ConstantesDao::initFiles(self::FILE_CPT_BOOK);
     }
 
-    public function saveAllBook(array $books): void
+    public function saveAllBook($books): void
     {
         $handle = fopen(BookDao::FILE_SAVE_BOOK, ConstantesDao::FILE_OPTION_W_PLUS);
         if (!empty(BookDao::ENTETES_BOOK)) {
             fputcsv($handle, BookDao::ENTETES_BOOK, ConstantesDao::DELIM);
         }
         foreach ($books as $book) {
-            fputcsv($handle, $book->toArray(), ConstantesDao::DELIM);
+            fputcsv($handle, $book, ConstantesDao::DELIM);
         }
         fclose($handle);
     }
 
-    public function getBookById($motif): array
+    public function getBookById($motif)
     {
         return $this->getOneBookByAttribute(BookDao::CHAMP_ID, $motif);
     }
@@ -83,11 +83,21 @@ class BookDao
     // }
 
 
-    public function saveBook(Book $newBook): Book
+    public function saveBook(Book $newBook): void
     {
         $handle = fopen(BookDao::FILE_SAVE_BOOK, ConstantesDao::FILE_OPTION_A_PLUS);
         $newBook->setId($this->getNextBookId());
-        $newBook->setNumeroLivre("ISBN-".str_pad($newBook->getId(), 10, "0", STR_PAD_LEFT));
+        $newBook->setNumeroLivre("ISBN-" . str_pad($newBook->getId(), 10, "0", STR_PAD_LEFT));
+        $newBook->setTaken(0);
+        $newBook->setReserved(0);
+        fputcsv($handle, $newBook->toArray(), ConstantesDao::DELIM);
+        fclose($handle);
+    }
+    public function saveBookTaken(Book $newBook): Book
+    {
+        $handle = fopen(BookDao::FILE_SAVE_BOOK, ConstantesDao::FILE_OPTION_A_PLUS);
+        $newBook->setId($this->getNextBookId());
+        $newBook->setNumeroLivre("ISBN-" . str_pad($newBook->getId(), 10, "0", STR_PAD_LEFT));
         $newBook->setTaken(0);
         $newBook->setReserved(0);
         fputcsv($handle, $newBook->toArray(), ConstantesDao::DELIM);
@@ -132,5 +142,17 @@ class BookDao
         }
         return $entitiesCherchees;
     }
-    
+
+    public function modifyBookTaken(Book $newBook): void
+    {
+        $allEntities = $this->getAllBooks();
+        foreach ($allEntities as $index => $currentEntity) {
+
+            if ($currentEntity['titre'] = $newBook->getTitle()) {
+                $allEntities[$index]['empruntes'] = $newBook->getTaken();
+                $allEntities[$index]['disponibles'] = $newBook->getCopyNumber();
+            }
+        }
+        $this->saveAllBook($allEntities);
+    }
 }

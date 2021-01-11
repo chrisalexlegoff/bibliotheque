@@ -18,15 +18,15 @@ function emprunterLivre()
 
     $touslesLivres->getAllBooks();
     foreach ($touslesLivres as $Livre_en_cours) {
-        if ($Livre_en_cours['Titre'] == $nomLivre) {
-            $livreaEmprunter->setTitle($Livre_en_cours['Titre']);
+        if ($Livre_en_cours['titre'] == $nomLivre) {
+            $livreaEmprunter->setTitle($Livre_en_cours['titre']);
             $livreaEmprunter->setAuthor($Livre_en_cours['auteur']);
-            $livreaEmprunter->setCopyNumber(intval($Livre_en_cours['Disponibles'] - 1));
+            $livreaEmprunter->setCopyNumber(intval($Livre_en_cours['disponibles'] - 1));
             if ($livreaEmprunter->copyNumber < 0) {
                 echo ("Nombre d'exemplaires insuffisants " . PHP_EOL);
                 break;
             }
-            $livreaEmprunter->setTaken(intval($Livre_en_cours['Empruntés'] + 1));
+            $livreaEmprunter->setTaken(intval($Livre_en_cours['empruntes'] + 1));
             $touslesLivres->saveBook($livreaEmprunter);
         }
     }
@@ -51,10 +51,10 @@ function reserverLivre()
 
     $touslesLivres->getAllBooks();
     foreach ($touslesLivres as $Livre_en_cours) {
-        if ($Livre_en_cours['Titre'] == $nomLivre) {
-            $livreaEmprunter->setTitle($Livre_en_cours['Titre']);
+        if ($Livre_en_cours['titre'] == $nomLivre) {
+            $livreaEmprunter->setTitle($Livre_en_cours['titre']);
             $livreaEmprunter->setAuthor($Livre_en_cours['auteur']);
-            $livreaEmprunter->setCopyNumber(intval($Livre_en_cours['Disponibles'] - 1));
+            $livreaEmprunter->setCopyNumber(intval($Livre_en_cours['disponibles'] - 1));
             if ($livreaEmprunter->copyNumber < 0) {
                 echo ("Nombre d'exemplaires insuffisants " . PHP_EOL);
                 break;
@@ -79,11 +79,11 @@ function retourLivre()
 
     $touslesLivres->getAllBooks();
     foreach ($touslesLivres as $Livre_en_cours) {
-        if ($Livre_en_cours['Titre'] == $nomLivre) {
-            $livreaRetourner->setTitle($Livre_en_cours['Titre']);
+        if ($Livre_en_cours['titre'] == $nomLivre) {
+            $livreaRetourner->setTitle($Livre_en_cours['titre']);
             $livreaRetourner->setAuthor($Livre_en_cours['auteur']);
-            $livreaRetourner->setCopyNumber(intval($Livre_en_cours['Disponibles'] + 1));
-            $livreaRetourner->setTaken(intval($Livre_en_cours['Empruntés'] - 1));
+            $livreaRetourner->setCopyNumber(intval($Livre_en_cours['disponibles'] + 1));
+            $livreaRetourner->setTaken(intval($Livre_en_cours['empruntes'] - 1));
             if ($livreaRetourner->taken < 0) {
                 $livreaRetourner->taken->setTaken(0);
                 $livreaRetourner->reserved->setReserved($livreaRetourner['Réservés'] - 1);

@@ -14,7 +14,9 @@ class CustomerDao
     private const CHAMP_EMAIL = "email";
     private CONST CHAMP_PASSWORD = "password";
     private CONST CHAMP_SATUT = "statut";
-    private const ENTETES_CUSTOMER = [CustomerDao::CHAMP_ID,CustomerDao::CHAMP_NUMERO_CUSTOMER,CustomerDao::CHAMP_NOM,CustomerDao::CHAMP_PRENOM,CustomerDao::CHAMP_EMAIL,CustomerDao::CHAMP_PASSWORD,CustomerDao::CHAMP_SATUT];
+    private CONST CHAMP_NBRE_LIVRE_RESERVE = "reserves";
+    private CONST CHAMP_NBRE_LIVRE_EMPRUNTE = "empruntes";
+    private const ENTETES_CUSTOMER = [CustomerDao::CHAMP_ID,CustomerDao::CHAMP_NUMERO_CUSTOMER,CustomerDao::CHAMP_NOM,CustomerDao::CHAMP_PRENOM,CustomerDao::CHAMP_EMAIL,CustomerDao::CHAMP_PASSWORD,CustomerDao::CHAMP_SATUT, CustomerDao::CHAMP_NBRE_LIVRE_RESERVE, CustomerDao::CHAMP_NBRE_LIVRE_EMPRUNTE];
 
     public function __construct()
     {
@@ -22,14 +24,14 @@ class CustomerDao
         ConstantesDao::initFiles(self::FILE_CPT_CUSTOMER);
     }
    
-    public function saveAllCustomers(array $customers): void
+    public function saveAllCustomers($customers): void
     {
         $handle = fopen(CustomerDao::FILE_SAVE_CUSTOMER, ConstantesDao::FILE_OPTION_W_PLUS);
         if (!empty(CustomerDao::ENTETES_CUSTOMER)) {
             fputcsv($handle, CustomerDao::ENTETES_CUSTOMER, ConstantesDao::DELIM);
         }
         foreach ($customers as $customer) {
-            fputcsv($handle, $customer->toArray(), ConstantesDao::DELIM);
+            fputcsv($handle, $customer, ConstantesDao::DELIM);
         }
         fclose($handle);
     }
@@ -60,27 +62,27 @@ class CustomerDao
         return $this->getAllCustomersByAttribute(CustomerDao::CHAMP_NOM, $motif);
     }
 
-    public function deleteCustomerById(int $idEntity): void
-    {
-        $allEntities = $this->getAllCustomers();
-        for ($i = 0; $i < count($allEntities); $i++) {
-            if ($allEntities[$i]->getId() === $idEntity) {
-                array_splice($allEntities, $i, 1);
-            }
-        }
-        $this->saveAllCustomers($allEntities);
-    }
-    public function modify(User $newEntity): void
-    {
-        $allEntities = $this->getAllCustomers();
-        foreach ($allEntities as $currentEntity) {
+    // public function deleteCustomerById(int $idEntity): void
+    // {
+    //     $allEntities = $this->getAllCustomers();
+    //     for ($i = 0; $i < count($allEntities); $i++) {
+    //         if ($allEntities[$i]->getId() === $idEntity) {
+    //             array_splice($allEntities, $i, 1);
+    //         }
+    //     }
+    //     $this->saveAllCustomers($allEntities);
+    // }
+    // public function modify(User $newEntity): void
+    // {
+    //     $allEntities = $this->getAllCustomers();
+    //     foreach ($allEntities as $currentEntity) {
            
-            if ($currentEntity->getId() === $newEntity[CustomerDao::CHAMP_ID]) {
-                $currentEntity = $newEntity;
-            }
-        }
-        $this->saveAllCustomers($allEntities);
-    }
+    //         if ($currentEntity->getId() === $newEntity[CustomerDao::CHAMP_ID]) {
+    //             $currentEntity = $newEntity;
+    //         }
+    //     }
+    //     $this->saveAllCustomers($allEntities);
+    // }
 
 
     public function saveCustomer(Customer $newCustomer): Customer
@@ -88,6 +90,8 @@ class CustomerDao
         $handle = fopen(CustomerDao::FILE_SAVE_CUSTOMER, ConstantesDao::FILE_OPTION_A_PLUS);
         $newCustomer->setId($this->getNextCustomerId());
         $newCustomer->setNumeroCustomer("ADH".str_pad($newCustomer->getId(), 6, "0", STR_PAD_LEFT));
+        $newCustomer->setNbreLivreReserve(0);
+        $newCustomer->setNbreLivreEmprunte(0);
         fputcsv($handle, $newCustomer->toArray(), ConstantesDao::DELIM);
         fclose($handle);
         return $newCustomer;
